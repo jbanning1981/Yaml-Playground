@@ -13,4 +13,9 @@
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YamlPlayground.Services\YamlPlayground.Services.csproj" />
+    <ProjectReference Include="..\YamlPlayground.Web\YamlPlayground.Web.csproj" />
+  </ItemGroup>
+
 </Project>

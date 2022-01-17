@@ -1,4 +1,4 @@
-name: Build And Test
+name: Build And Test (Release)
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
         - name: Setup .NET
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: 5.x
+            dotnet-version: ${{env.DOTNET_VERSION}}
         - name: Restore dependencies
           run: dotnet restore
         - name: Build Web Project
