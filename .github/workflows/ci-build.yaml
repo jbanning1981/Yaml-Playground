@@ -8,25 +8,6 @@ env:
     BuildPlatform: Release
     DOTNET_VERSION: '5.x'
 jobs:
-    build-sql-project:
-        runs-on: windows-latest
-        steps:
-            - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
-              run: nuget restore
-
-            - name: Add msbuild to PATH
-              uses: microsoft/setup-msbuild@v1.0.2
-
-            - name: Run msbuild
-              run: msbuild .\Yamlplayground.Database.sqlproj
-            #- uses: actions/checkout@v2
-            #- name: Build SQL Project
-            #- task: VSBuild@1
-            #    - inputs:
-            #        solution: '**/Yamlplayground.Database.sqlproj'
-            #        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{build.artifactstagingdirectory}}\SQL_DB.zip" /p:DesktopBuildPackageLocation="${{build.artifactstagingdirectory}}\SQL_DB.zip" /p:DeployIisAppPath="Default Web Site"'
-            #        platform: '${{env.BuildPlatform}}'
-            #        configuration: '${{env.BuildConfig}}'
     build:
         runs-on: windows-latest
         steps:
@@ -40,7 +21,7 @@ jobs:
         #- name: Build
         #  run: dotnet build --no-restore
         - name: Build
-          run: dotnet msbuild **/YamlPlayground.Web.csproj -property:Configuration=${{env.BuildPlatform}}
+          run: dotnet msbuild YamlPlayground.sln -property:Configuration=${{env.BuildPlatform}}
 
         - name: Test
           run: dotnet test --no-build --verbosity normal
