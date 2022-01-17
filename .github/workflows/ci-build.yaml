@@ -8,6 +8,18 @@ env:
     BuildPlatform: Release
     DOTNET_VERSION: '5.x'
 jobs:
+    msbuild-steps:
+        runs-on: windows-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: 5.x
+        - name: Restore dependencies
+          run: dotnet restore
+        - name: MsBuild Solution
+          run: dotnet msbuild YamlPlayground.sln
     build:
         runs-on: windows-latest
         steps:
@@ -18,10 +30,9 @@ jobs:
             dotnet-version: 5.x
         - name: Restore dependencies
           run: dotnet restore
-        #- name: Build
-        #  run: dotnet build --no-restore
-        - name: Build
+        - name: MsBuild Solution
+          run: dotnet msbuild YamlPlayground.sln
+        - name: Build Web Project
           run: dotnet build ./YamlPlayground.Web/YamlPlayground.Web.csproj -property:Configuration=${{env.BuildPlatform}}
-
-        - name: Test
-          run: dotnet test --no-build --verbosity normal
+        - name: Unit Test
+          run: dotnet test ./Yamlplayground.Tests/Yamlplayground.Tests.csproj --verbosity normal --filter TestCategory='Unit'
