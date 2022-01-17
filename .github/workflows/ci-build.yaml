@@ -21,7 +21,7 @@ jobs:
         #- name: Build
         #  run: dotnet build --no-restore
         - name: Build
-          run: dotnet build YamlPlayground.Web.csproj -property:Configuration=${{env.BuildPlatform}}
+          run: dotnet build **/YamlPlayground.Web.csproj -property:Configuration=${{env.BuildPlatform}}
 
         - name: Test
           run: dotnet test --no-build --verbosity normal
